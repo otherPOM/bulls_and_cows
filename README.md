@@ -18,3 +18,11 @@ The grade is considered correct if it contains number-and-word pairs (like `X bu
 In this stage, your program should generate a pseudo-random number of a given length with unique digits and print it. If the length is greater than 10, the program should print a message containing the word `Error`. The secret code may contain any digits from 0 to 9 but only once. Secret code shouldn't start with a digit 0: for the first digit of the secret code, use digits from 1 to 9.
 
 Don't delete your previous work, just move your code to a separate method. You will need it in the future stages.
+
+## Stage 4
+In this stage, your program should:
+
+1. Ask for the length of the secret code and then generate the code.
+2. Wait for the user input.
+3. Grade the guessing attempt in bulls and cows.
+4. If the secret code has been guessed, the program stops; otherwise, return to the second step.

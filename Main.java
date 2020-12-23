@@ -8,14 +8,22 @@ public class Main {
     private static int bulls = 0;
     private static int cows = 0;
     private static String CODE;
+    private static boolean guessed = false;
 
     public static void main(String[] args) {
+        System.out.println("Please, enter the secret code's length:");
         var length = scan.nextInt();
+        scan.nextLine();
         generateCodeWithUniqueDigits(length);
-        System.out.println(CODE);
-//        var guess = scan.nextLine();
-//        grade(guess);
-//        printGrade();
+        System.out.println("Okay, let's start a game!");
+        var count = 1;
+        while (!guessed) {
+            System.out.printf("Turn %d:\n", count++);
+            var guess = scan.nextLine();
+            grade(guess);
+            printGrade();
+        }
+        System.out.println("Congratulations! You guessed the secret code.");
     }
 
     private static void generateCodeWithUniqueDigits(int length) {
@@ -51,11 +59,13 @@ public class Main {
     }
 
     private static void grade(String guess) {
-        for (int i = 0; i < 4; i++) {
-            if (CODE.charAt(i) == guess.charAt(i)) {
-                bulls++;
-            } else if (CODE.contains(guess.charAt(i) + "")) {
-                cows++;
+        if (guess.length() == CODE.length()) {
+            for (int i = 0; i < CODE.length(); i++) {
+                if (CODE.charAt(i) == guess.charAt(i)) {
+                    bulls++;
+                } else if (CODE.contains(guess.charAt(i) + "")) {
+                    cows++;
+                }
             }
         }
     }
@@ -71,7 +81,11 @@ public class Main {
         } else {
             sb.append(bulls).append(" bull(s) and ").append(cows).append(" cow(s).");
         }
-        sb.append(" The secret code is ").append(CODE).append('.');
         System.out.println(sb);
+        if (bulls == CODE.length()) {
+            guessed = true;
+        }
+        bulls = 0;
+        cows = 0;
     }
 }
