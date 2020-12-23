@@ -14,3 +14,7 @@ In this stage, your goal is to write the core part of the game: the grader.
 2. Use a predefined 4-digit code and grade the answer that was input. You can do it digit by digit.
 The grade is considered correct if it contains number-and-word pairs (like `X bulls and Y cows`) that give the correct information. If the answer doesn't contain any bulls and cows, you should output `None`.
    
+## Stage 3
+In this stage, your program should generate a pseudo-random number of a given length with unique digits and print it. If the length is greater than 10, the program should print a message containing the word `Error`. The secret code may contain any digits from 0 to 9 but only once. Secret code shouldn't start with a digit 0: for the first digit of the secret code, use digits from 1 to 9.
+
+Don't delete your previous work, just move your code to a separate method. You will need it in the future stages.

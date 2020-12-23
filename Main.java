@@ -7,12 +7,47 @@ public class Main {
 
     private static int bulls = 0;
     private static int cows = 0;
-    private static final String CODE = "9305";
+    private static String CODE;
 
     public static void main(String[] args) {
-        var guess = scan.nextLine();
-        grade(guess);
-        printGrade();
+        var length = scan.nextInt();
+        generateCodeWithUniqueDigits(length);
+        System.out.println(CODE);
+//        var guess = scan.nextLine();
+//        grade(guess);
+//        printGrade();
+    }
+
+    private static void generateCodeWithUniqueDigits(int length) {
+        if (length > 10) {
+            System.out.printf("Error: can't generate a secret number with a length" +
+                    " of %d because there aren't enough unique digits.\n", length);
+        }
+        var prn = 0L;
+        while (doesNotContainEveryDigit(prn)) {
+            prn = System.nanoTime();
+        }
+        var s = new StringBuilder();
+        while (s.length() < length) {
+            var digit = prn % 10;
+            if (s.length() == 0 && digit == 0) {
+                prn /= 10;
+                continue;
+            }
+            s.append(digit);
+            prn /= 10;
+        }
+        CODE = s.toString();
+    }
+
+    private static boolean doesNotContainEveryDigit(long x) {
+        var s = x + "";
+        for (int i = 0; i < 10; i++) {
+            if (!s.contains(i + "")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void grade(String guess) {
