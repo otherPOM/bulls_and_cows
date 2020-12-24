@@ -30,3 +30,10 @@ In this stage, your program should:
 ## Stage 5
 In this stage, rewrite the secret code generator using a suitable Java method.
 
+## Stage 6
+In this step, your program should:
+
+1. Ask for the length of the secret code.
+2. Ask for the range of possible characters in the secret code.
+3. Generate a secret code using numbers and characters. This time, you should also print the secret code using `*` characters and print which characters were used to generate the secret code.
+4. Function as a fully playable game.

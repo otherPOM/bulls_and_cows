@@ -10,19 +10,25 @@ public class Main {
     private static int cows = 0;
     private static String CODE;
     private static boolean guessed = false;
+    private static char[] symbols = new char[36];
 
     public static void main(String[] args) {
-        System.out.println("Please, enter the secret code's length:");
+        fillSymbols();
+        System.out.println("Input the length of the secret code:");
         var length = scan.nextInt();
+        System.out.println("Input the number of possible symbols in the code:");
+        var numOfSymbols = scan.nextInt();
         scan.nextLine();
 
-        if (length > 10) {
-            System.out.printf("Error: can't generate a secret number with a length" +
-                    " of %d because there aren't enough unique digits.\n", length);
+        if (length > 36) {
+            System.out.printf("Error: can't generate a secret code with a length" +
+                    " of %d because there aren't enough unique symbols.\n", length);
             return;
         }
-
-        generateCodeWithUniqueDigits(length);
+        var range = makeRangeString(numOfSymbols);
+        generateCodeWithUniqueSymbols(length, numOfSymbols);
+        System.out.println("The secret code is prepared: " +
+                "*".repeat(length) + range);
 
         System.out.println("Okay, let's start a game!");
 
@@ -37,12 +43,12 @@ public class Main {
         System.out.println("Congratulations! You guessed the secret code.");
     }
 
-    private static void generateCodeWithUniqueDigits(int length) {
+    private static void generateCodeWithUniqueSymbols(int length, int numOfSymbols) {
         var sb = new StringBuilder();
-        new Random().ints(0, 10)
+        new Random().ints(0, numOfSymbols)
                 .distinct()
                 .limit(length)
-                .forEach(sb::append);
+                .forEach(x -> sb.append(symbols[x]));
         CODE = sb.toString();
     }
 
@@ -75,5 +81,28 @@ public class Main {
         }
         bulls = 0;
         cows = 0;
+    }
+
+    private static void fillSymbols() {
+        char num = '0';
+        char c = 'a';
+        for (int i = 0; i < 10; i++) {
+            symbols[i] = num++;
+        }
+        for (int i = 10; i < 36; i++) {
+            symbols[i] = c++;
+        }
+    }
+
+    private static String makeRangeString(int num) {
+        var sb = new StringBuilder(" (");
+        if (num <= 10) {
+            sb.append("0-").append(symbols[num - 1]);
+        } else {
+            sb.append("0-9, a-").append(symbols[num - 1]);
+        }
+
+        sb.append(").");
+        return sb.toString();
     }
 }
