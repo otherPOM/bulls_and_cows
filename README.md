@@ -26,3 +26,7 @@ In this stage, your program should:
 2. Wait for the user input.
 3. Grade the guessing attempt in bulls and cows.
 4. If the secret code has been guessed, the program stops; otherwise, return to the second step.
+
+## Stage 5
+In this stage, rewrite the secret code generator using a suitable Java method.
+

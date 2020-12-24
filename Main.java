@@ -1,9 +1,10 @@
 package bullscows;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    private static Scanner scan = new Scanner(System.in);
+    private static final Scanner scan = new Scanner(System.in);
 
     private static int bulls = 0;
     private static int cows = 0;
@@ -14,8 +15,17 @@ public class Main {
         System.out.println("Please, enter the secret code's length:");
         var length = scan.nextInt();
         scan.nextLine();
+
+        if (length > 10) {
+            System.out.printf("Error: can't generate a secret number with a length" +
+                    " of %d because there aren't enough unique digits.\n", length);
+            return;
+        }
+
         generateCodeWithUniqueDigits(length);
+
         System.out.println("Okay, let's start a game!");
+
         var count = 1;
         while (!guessed) {
             System.out.printf("Turn %d:\n", count++);
@@ -23,39 +33,17 @@ public class Main {
             grade(guess);
             printGrade();
         }
+
         System.out.println("Congratulations! You guessed the secret code.");
     }
 
     private static void generateCodeWithUniqueDigits(int length) {
-        if (length > 10) {
-            System.out.printf("Error: can't generate a secret number with a length" +
-                    " of %d because there aren't enough unique digits.\n", length);
-        }
-        var prn = 0L;
-        while (doesNotContainEveryDigit(prn)) {
-            prn = System.nanoTime();
-        }
-        var s = new StringBuilder();
-        while (s.length() < length) {
-            var digit = prn % 10;
-            if (s.length() == 0 && digit == 0) {
-                prn /= 10;
-                continue;
-            }
-            s.append(digit);
-            prn /= 10;
-        }
-        CODE = s.toString();
-    }
-
-    private static boolean doesNotContainEveryDigit(long x) {
-        var s = x + "";
-        for (int i = 0; i < 10; i++) {
-            if (!s.contains(i + "")) {
-                return true;
-            }
-        }
-        return false;
+        var sb = new StringBuilder();
+        new Random().ints(0, 10)
+                .distinct()
+                .limit(length)
+                .forEach(sb::append);
+        CODE = sb.toString();
     }
 
     private static void grade(String guess) {
