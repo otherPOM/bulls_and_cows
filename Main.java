@@ -15,16 +15,35 @@ public class Main {
     public static void main(String[] args) {
         fillSymbols();
         System.out.println("Input the length of the secret code:");
-        var length = scan.nextInt();
-        System.out.println("Input the number of possible symbols in the code:");
-        var numOfSymbols = scan.nextInt();
-        scan.nextLine();
-
-        if (length > 36) {
-            System.out.printf("Error: can't generate a secret code with a length" +
-                    " of %d because there aren't enough unique symbols.\n", length);
+        var lengthS = scan.nextLine();
+        if (!lengthS.matches("[1-9][0-9]*")) {
+            System.out.printf("Error: %s isn't a valid number.\n", lengthS);
             return;
         }
+        System.out.println("Input the number of possible symbols in the code:");
+        var numOfSymbolsS = scan.nextLine();
+        if (!numOfSymbolsS.matches("[1-9][0-9]*")) {
+            System.out.printf("Error: %s isn't a valid number.\n", numOfSymbolsS);
+            return;
+        }
+        var length = Integer.parseInt(lengthS);
+        var numOfSymbols = Integer.parseInt(numOfSymbolsS);
+
+        if (length > 36) {
+            System.out.printf("Error: can't generate a secret number with a length of %d because there aren't enough unique symbols.\n",
+                    length);
+            return;
+        }
+        if (numOfSymbols > 36) {
+            System.out.println("Error: maximum number of possible symbols in the code is 36 (0-9, a-z).");
+            return;
+        }
+        if (numOfSymbols < length) {
+            System.out.printf("Error: it's not possible to generate a code with a length of %d with %d unique symbols.\n",
+                    length, numOfSymbols);
+            return;
+        }
+
         var range = makeRangeString(numOfSymbols);
         generateCodeWithUniqueSymbols(length, numOfSymbols);
         System.out.println("The secret code is prepared: " +

@@ -37,3 +37,9 @@ In this step, your program should:
 2. Ask for the range of possible characters in the secret code.
 3. Generate a secret code using numbers and characters. This time, you should also print the secret code using `*` characters and print which characters were used to generate the secret code.
 4. Function as a fully playable game.
+
+## Stage 7
+In this stage, your program should:
+
+1. Handle incorrect input.
+2. Print an error message that contains the word `error`. After that, don't ask for the numbers again, just finish the program.
